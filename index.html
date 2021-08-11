@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<?php require_once("config.php");
+if(!isset($_SESSION["login_sess"])) 
+{
+    header("location:login.php"); 
+}
+  $email=$_SESSION["login_email"];
+  $findresult = mysqli_query($dbc, "SELECT * FROM users WHERE email= '$email'");
+if($res = mysqli_fetch_array($findresult))
+{
+$username = $res['username']; 
+$fname = $res['fname'];   
+$lname = $res['lname'];  
+$email = $res['email'];  
+}
+ ?> 
+
+
+<!DOCTYPE html>
+<html lang="en">
+     <head>
+  <title>Home</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+ </head>
+  <style>
+
+
+
+       body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 5px 30px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 1px;
+}
+ 
+.signin {
+  background-color: red;
+  width: 40%;
+ height:40px;
+ margin-left: 20px;
+
+}
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: hidden; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 40%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+
+      .bodys  {
+  background-image: url("sv.jpg");
+  color: white;
+  height: 300px;
+  background-size: cover;
+  background-repeat:no-repeat;
+  text-align: center;
+  background-position: 20px;
+
+}
+   .body1 {
+  background-color:black;
+  height: 100px;
+  background-size: 300px 180px;
+  text-align: center;
+  text-decoration-color: white;
+}
+ .align {
+  background-color:white;
+  height: 22px;
+  margin-top: 40px; /* margin top*/
+
+  
+}
+     .aligns {
+  background-color:white;
+  height: 50px;
+  width: 1000px;
+ margin-left: auto;
+ overflow: hidden;
+
+
+  
+} 
+.aligna {
+  background-color:white;
+  height: 30px;
+  width: 900px;
+  text-align: center;
+  
+} 
+.alignb {
+  text-align: right;
+  height: 30px;
+  width: 500px;
+} 
+.new1 {
+  border: 2px solid lightblue;
+  
+  margin-left: 10%;
+  margin-right: 10%;
+}
+    
+    .kk {
+  
+   height: 57px;
+   background-color: white;     
+    }
+     .abt {
+   
+
+  margin-left: 10px;
+    }
+
+
+    .card {
+  background-color: beige;
+  border: none;
+  color: black;
+  padding: 50px 2px;
+  text-align: center;
+  font-size: 12px;
+  margin: 1px 1px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  background-color:blue;
+  color: white;
+}
+
+.btn:hover {
+  background-color: #3e8e41;
+  color: red;
+}
+
+.aln {
+  margin-top: 70px;
+  margin-bottom: 50px;
+}
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  margin-right: 1%;
+  margin-top: 4px;
+}
+
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav a:not(:first-child) {display: none;}
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive {position: relative;}
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+  .btnr{
+    background-color: blue;
+    padding: 10px 50px; 
+    margin-left: 43%;
+    margin-top: 90px;
+
+  }
+
+
+
+
+  .carousel-inner img {
+    width: 120%;
+    position: none;
+    height: 400px;
+    margin-top: 1px;
+
+  }
+
+.main {
+  padding: 16px;
+  margin-top: 70px;
+  height: 2500px; 
+}
+.text-colour {
+  
+  color: indianred;
+}
+  .margint{
+    position: static;
+    margin-top: 5px;
+  }
+  .btn {
+  border: none;
+  background-color: inherit;
+  width: 40%;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 5px;
+ 
+ 
+}
+  /* Blue */
+.info {
+  color: dodgerblue;
+}
+
+.info:hover {
+  background: #2196F3;
+  color: white;
+}
+  /* Orange */
+.warning {
+  color: orange;
+}
+
+.warning:hover {
+  background: #ff9800;
+  color: white;
+}
+
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for all buttons */
+.button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: #474e5d;
+  padding-top: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* Style the horizontal ruler */
+.hr {
+  border: 1px solid #f1f1f1;
+  margin-left: 30%;
+}
+ 
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #f44336;
+  cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+      
+
+      body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+   .overflow{
+    overflow-x: hidden;
+
+   }
+   .responsive {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+
+</style>
+
+<body  >
+         <div class="container" >
+     <form action="login_process.php" method="POST">
+
+    <a href="logout.php"><span style="color:red; float: right;">Logout</span> </a>
+          <a> Welcome! <span style="color:#33CC00"><?php echo $username; ?></span> </a>
+         
+         
+        <div class="topnav" id="myTopnav">
+        <a href="#news">Writers Choice</a>
+        <a href="bill.php">Make an Order</a>
+        <a href="#services">Our Services</a>
+        <a href="contactus.php">Contact us</a>
+        
+       <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+       <i class="fa fa-bars"></i>
+      </a>
+      </div>
+
+     <script>
+      function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+       x.className += " responsive";
+       } else {
+       x.className = "topnav";
+        }
+        }
+       </script>
+      
+
+
+      
+  </div>
+
+   <div class="margint">
+
+  <div class="container mt-3" >
+
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ul>
+  
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="pen.jpg"  width="1100" height="500">
+          <div class="carousel-caption">
+            <h1> <b>Welcome To Writers choice</b></h1><br><br><br><br><br>
+      <h4><i>For the best services, timeline,cost and professionalism!</i></h4><br>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="pub2.jpg" width="1100" height="500">
+         <div class="carousel-caption">
+        <h5 class="text-colour"><i>For the best services</i></h5><br><br><br><br><br>
+        <h2 class="text-colour">Check our offers today</h2>
+        <h4 class="text-colour">and make your order below!</h4>
+     
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="sv.jpg" width="1100" height="500">
+        <div class="carousel-caption">
+          <p><h2>Make  you order with us!</i></h2><br><br><br><br><br><br>
+
+        <button type="button" class="btn btn-primary" >ORDER NOW</button>><br><br>
+         
+        
+          </script>
+            
+
+      </div>
+    </div>
+  </div>
+
+           
+
+  
+  <!-- Left and right controls -->
+  <a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#myCarousel" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+</div>
+  
+
+
+  <div >
+  <div class="container">
+    <br>
+    <a href="bill.php"> <button  style="background-color: blue; width: 40%; margin-left: 30%; " >Place an Order</button><br><br></a>
+    
+     
+ 
+
+
+
+  <p>Our clients is our priority at Writers Choice. We therefore commit ourselves to meeting the needs of our cliently in terms of quality, plagiarism free, cost, meeting datelines and many more factors.</p>
+  <p>Its a scholarly organization thus having big dreams and a bright future as it offers training to young professionals.</p>
+  <p><strong>Note:</strong> We also give out free after sales services and 24/7 customer support:</p>
+  <div class="card-deck">
+    <div class="card ">
+      <div class="card-body text-center">
+        <p class="card-text "><h5>Quality Assurance</h5></p>
+        <p class="card-text">We offer the best services in regard to content and quality.</p>
+        <p class="card-text">We discourage plagiarism at all cost. Our platform doesn't in any way accept any form of plagiarism from any our writers. Our intention to give the best services</p>
+        <p class="card-text">Meeting dateline in assigned tasks heals a soul. Its an important factor to consider in any task assigned. </p>
+      </div>
+    </div>
+    <div class="card ">
+      <div class="card-body text-center">
+        <p class="card-text"><h5>Expertise</h5></p>
+        <p class="card-text">Experienced writers with tecnical skills in the field</p>
+        <p class="card-text">We nature talents by giving training to young talented people are willing to join the Writers furture world.</p>
+        <p class="card-text">Top rated writers are always rewarded, this gives us a chance to deliver the best to our clients in terms of services.</p>
+      </div>
+    </div>
+
+    <div class="card ">
+      <div class="card-body text-center">
+        <p class="card-text"><h5>Cost Friendly</h5></p>
+        <p class="card-text">Affordable quality services.</p>
+        <p class="card-text">We give our services depending on order from the client.</p>
+        <p class="card-text">Payment is before services</p>
+        <p class="card-text">Free after sales services.</p>
+      </div>
+    </div>
+
+    
+    <div class="card ">
+      <div class="card-body text-center">
+        <p class="card-text"><h5>Friendly Interaction</h5></p>
+        <p class="card-text">24/7 customer support.</p>
+        <p class="card-text">We do the best to satisfy the needs of our clients</p>
+        <p class="card-text">Refferals are rewarded.</p>
+      </div>
+        </div> 
+        
+        
+       </div>
+    </div>
+  </div>
+
+    <hr class="new1" >
+
+
+          <div class="container">
+            
+           <h2 class="text-center" >About Us</h2><br>
+            
+          <p><b>Writers Choice</b> has more than 400 talented writers who are ready for the task. We offer variety of 
+          services including Essay writing, Research Paper, Dissertation writing,  Term paper writing, 
+          Book reports,Editing and proofheading, web design assignments etc.</p>
+          <br>
+         <p>We are a committed group ofyoung scholars andexperts who can achieve their dateline, content  
+         and professionalismin thetask assigned. Our mandate is customer satisfaction and to make sure
+         customers achieve what they desire withingiven timeline.<a  href="#" class=" text-primary"> <b>learn more</b></a></p>
+
+           <img src="classy.jpg" alt="Nature" class="responsive" width="600" height="400">
+      
+    
+                </div>
+
+
+
+   <hr class="new1">
+     
+    
+  
+<div class="container">
+  <div id="services" >
+      <h3 class="text-center" >Our Services</h3><br>
+    </div>
+  <div class="row">
+    <div  class="col-sm-4" >
+      <h5 href="#" class="text-info"><a href="#" class=" text-primary">Essay writing</a></h5>
+      <p><i>Writers Choice </i> has more than 400 talented writers who are ready for the task, they have done deep research in the field of Essay writing. The essay are checked of errors and confirmed before delivery to clients. </p>
+      <p>We make sure that clients feel as partisant in the Essay writing by giving out the best.</p>
+      
+      
+    </div>
+    <div class="col-sm-4">
+      <h5 href="#" class="text-info"><a href="#" class=" text-primary">Research Paper</a></h5>
+      <p>We research on any research topic and give the best basing on the current affairs and oportunity.</p>
+      <p>Its our commitment to ensure that essential skills are used for our clients to have a good research paper using best writing skills and structure.</p>
+     
+    </div>
+    <div class="col-sm-4">
+      <h5 href="#" class="text-info"><a href="#" class=" text-primary">Dissertation writing</a></h5>        
+      <p>We are updated with specialist and expertise information who have alot of skills in project management. </p>
+      <p>We use software such as SPSS and EXCEL mostly when handling data anlaysis, which makes data presentation easy and with more explanations in a special way.</p>
+     
+    </div>
+    <div   >
+      <h3 class="aligna"></h3>
+    </div>
+
+    <div class="col-sm-4">
+      <h5 href="#" class="text-info"><a  href="#" class=" text-primary"> Term paper writing</a></h5>        
+      <p>We have done many articles on Term Paper Writing and similar articles, we can promise the best when it comes to term paper writing.</p>
+      <p>Research, Technology and current affairs gives us the best view on how we should handle undertake a task in term paper writing and anything related to this..</p>
+   
+    </div>
+    
+    <div class="col-sm-4">
+      <h5 href="#" class="text-info"><a  href="#" class=" text-primary"> Book Reports</a></h5>        
+      
+      <p>The roadmap to this is giving unlimited writing essentials on business writing essentials, reader-friedly reports among many more which is easy to follow and precise to the topic</p>
+     </div>
+
+    <div class="col-sm-4">
+      <h5 href="#" class="text-info"> <a  href="#" class=" text-primary">Editing and proofreading</a></h5>        
+      <p>This comes mainly the last stage of the editing process which is done after doing the other revisions on editing.</p>
+      <p>We have special skilled personell who can handle this best, we can as well give guidlines on how one can grow on this field..</p>
+     </div>
+      <div   >
+      <h3 class="aligna"></h3>
+    </div>
+     <div class="col-sm-4">
+      <h5 href="#" class="text-info"> <a  href="#" class=" text-primary">Web Design</a></h5>        
+      <p>Web design is an art. We use tols which are relevant to the current market requirements. We are competitive when it comes to web design.</p>
+      <p>We can handle your project within assigned timeline. We give you the most stylish site ever</p>
+      <p>Get the website at your convinient time.</p>
+     </div>
+   
+
+  </div>
+</div>
+
+
+</div>   
+   <hr class="new1" >
+
+  
+
+</div>
+
+
+</body>
+</html>
